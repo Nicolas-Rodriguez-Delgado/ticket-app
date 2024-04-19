@@ -1,5 +1,16 @@
-import Image from "next/image";
+import prisma from "@/prisma/db";
 
-export default function Tickets() {
-  return <div>Tickets</div>;
-}
+import React from "react";
+import DataTable from "./DataTable";
+
+const Tickets = async () => {
+  const tickets = await prisma.ticket.findMany();
+  console.log(tickets);
+  return (
+    <div>
+      <DataTable tickets={tickets}></DataTable>
+    </div>
+  );
+};
+
+export default Tickets;
