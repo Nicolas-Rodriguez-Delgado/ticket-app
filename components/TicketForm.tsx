@@ -46,9 +46,13 @@ const TicketForm = ({ ticket }: Props) => {
       setIsSubmitting(true);
       setError("");
 
-      await axios.post("/api/tickets", values);
-      setIsSubmitting(false);
+      if (ticket) {
+        await axios.patch("/api/tickets/" + ticket.id, values);
+      } else {
+        await axios.post("/api/tickets", values);
+      }
 
+      setIsSubmitting(false);
       router.push("/tickets");
       router.refresh();
     } catch (error) {
@@ -86,6 +90,7 @@ const TicketForm = ({ ticket }: Props) => {
             <FormField
               control={form.control}
               name="status"
+              defaultValue={ticket?.status}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Status</FormLabel>
@@ -113,6 +118,7 @@ const TicketForm = ({ ticket }: Props) => {
             <FormField
               control={form.control}
               name="priority"
+              defaultValue={ticket?.priority}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Priority</FormLabel>
@@ -138,9 +144,11 @@ const TicketForm = ({ ticket }: Props) => {
               )}
             ></FormField>
           </div>
-          <Button type="submit" disabled={isSubmitting}>
-            {ticket ? "Update Ticket" : "Create Ticket"}
-          </Button>
+          <div className="flex w-full py-4">
+            <Button type="submit" disabled={isSubmitting}>
+              {ticket ? "Update Ticket" : "Create Ticket"}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

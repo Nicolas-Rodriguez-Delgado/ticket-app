@@ -14,7 +14,7 @@ const EditTicket = async ({ params }: Props) => {
     where: { id: parseInt(params.id) },
   });
   if (!ticket) {
-    return <p className="text-destructive">Ticket not found</p>;
+    return <p className="text-destructive">Ticket not found!</p>;
   }
   return <TicketForm ticket={ticket} />;
 };

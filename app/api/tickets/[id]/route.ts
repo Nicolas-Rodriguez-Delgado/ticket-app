@@ -6,9 +6,6 @@ interface Props {
   params: { id: string };
 }
 
-import React from "react";
-import { error } from "console";
-
 export async function PATCH(request: NextRequest, { params }: Props) {
   const body = await request.json();
   const validation = ticketSchema.safeParse(body);
