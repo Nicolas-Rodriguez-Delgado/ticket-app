@@ -1,10 +1,13 @@
 import UserForm from "@/components/UserForm";
-import Image from "next/image";
+import DataTable from "./DataTable";
+import prisma from "@/prisma/db";
 
-export default function Users() {
+export default async function Users() {
+  const users = await prisma.user.findMany();
   return (
     <div>
       <UserForm />
+      <DataTable users={users} />
     </div>
   );
 }
