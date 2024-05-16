@@ -17,9 +17,16 @@ export default async function Dashboard() {
     },
   });
 
-  const groupTickets = prisma.ticket.groupBy({
+  const groupTicket = await prisma.ticket.groupBy({
     by: ["status"],
     _count: { id: true },
+  });
+
+  const data = groupTicket.map((item) => {
+    return {
+      name: item.status,
+      total: item._count.id,
+    };
   });
   return (
     <div>
@@ -28,7 +35,7 @@ export default async function Dashboard() {
           <DashRecentTickets tickets={tickets} />
         </div>
         <div>
-          <DashChart />
+          <DashChart data={data} />
         </div>
       </div>
     </div>
