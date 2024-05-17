@@ -1,3 +1,5 @@
+"use client";
+
 import TicketPriority from "@/components/TicketPriority";
 import TicketStatusBadge from "@/components/TicketStatusBadge";
 import {
@@ -13,6 +15,7 @@ import Link from "next/link";
 import React from "react";
 import { ArrowDown } from "lucide-react";
 import { SearchParams } from "./page";
+import { useRouter } from "next/navigation";
 
 interface Props {
   tickets: Ticket[];
@@ -20,6 +23,12 @@ interface Props {
 }
 
 const DataTable = ({ tickets, searchParams }: Props) => {
+  const router = useRouter();
+
+  const handleRowClick = (ticketId: string) => {
+    router.push(`/tickets/${ticketId}`);
+  };
+
   return (
     <div className="w-full mt-5">
       <div className="rounded-md sm:boder">
@@ -73,10 +82,13 @@ const DataTable = ({ tickets, searchParams }: Props) => {
           <TableBody>
             {tickets
               ? tickets.map((ticket) => (
-                  <TableRow key={ticket.id} data-ref="/">
-                    <TableCell>
-                      <Link href={`/tickets/${ticket.id}`}>{ticket.title}</Link>
-                    </TableCell>
+                  <TableRow
+                    key={ticket.id}
+                    data-ref="/"
+                    onClick={() => handleRowClick(ticket.id.toString())}
+                    className="cursor-pointer"
+                  >
+                    <TableCell>{ticket.title}</TableCell>
                     <TableCell>
                       <div className="flex justify-center">
                         <TicketStatusBadge status={ticket.status} />

@@ -47,7 +47,7 @@ const Tickets = async ({ searchParams }: { searchParams: SearchParams }) => {
 
   return (
     <div>
-      <div className="flex gap-2">
+      <div className="flex justify-between">
         <Link
           href="/tickets/new"
           className={buttonVariants({ variant: "default" })}

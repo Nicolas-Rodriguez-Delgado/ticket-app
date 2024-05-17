@@ -71,21 +71,26 @@ const TicketForm = ({ ticket }: Props) => {
             defaultValue={ticket?.title}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Ticket Title</FormLabel>
+                <FormLabel className="my-2">Ticket Title</FormLabel>
                 <FormControl>
                   <Input placeholder="Ticket title.." {...field}></Input>
                 </FormControl>
               </FormItem>
             )}
           />
-          <Controller
-            name="description"
-            defaultValue={ticket?.description}
-            control={form.control}
-            render={({ field }) => (
-              <SimpleMdeReact placeholder="Description" {...field} />
-            )}
-          />
+          <div className="mt-5 mb-5">
+            <FormLabel>Description</FormLabel>
+            <div className="mb-5">
+              <Controller
+                name="description"
+                defaultValue={ticket?.description}
+                control={form.control}
+                render={({ field }) => (
+                  <SimpleMdeReact placeholder="Description" {...field} />
+                )}
+              />
+            </div>
+          </div>
           <div className="flex w-full space-x-4">
             <FormField
               control={form.control}
